@@ -1,5 +1,26 @@
 ---
 import { siteConfig } from "../config";
+import BrandIcon from "./BrandIcon.astro";
+
+// Map skill names to icon slugs (only for skills that have recognizable logos)
+const skillIconMap: Record<string, string> = {
+  "Java": "java",
+  "Python": "python",
+  "Apache Spark": "apachespark",
+  "Docker": "docker",
+  "Kubernetes": "kubernetes",
+  "Azure Data Factory": "azure",
+  "Azure Fabric": "azure",
+  "AWS": "aws",
+  "PostgreSQL": "postgresql",
+  "Snowflake": "snowflake",
+  "Oracle": "oracle",
+  "MySQL": "mysql",
+  "GraphQL": "graphql",
+  "Git": "git",
+  "Streamlit": "streamlit",
+  "Databricks": "databricks",
+};
 
 const skillCategories = [
   { label: "Engineering", items: siteConfig.skills.engineering, color: "blue" },
@@ -12,7 +33,6 @@ const skillCategories = [
 
 <section id="about" class="relative py-24 md:py-32">
   <div class="max-w-6xl mx-auto px-6">
-    <!-- Section header -->
     <div class="reveal mb-16">
       <p class="text-sm font-mono text-blue-400 mb-2">// about</p>
       <h2 class="text-3xl md:text-4xl font-bold text-white">The Journey</h2>
@@ -21,7 +41,6 @@ const skillCategories = [
 
     <!-- Two columns: photo + narrative -->
     <div class="grid md:grid-cols-2 gap-12 items-start mb-20">
-      <!-- Photo -->
       <div class="reveal stagger-1 flex justify-center md:justify-start">
         <div class="relative">
           <div class="w-56 h-56 md:w-72 md:h-72 rounded-2xl overflow-hidden gradient-border">
@@ -32,14 +51,12 @@ const skillCategories = [
               loading="lazy"
             />
           </div>
-          <!-- Location badge -->
           <div class="absolute -bottom-3 -right-3 glass rounded-full px-4 py-2 text-xs font-mono text-blue-300">
             Lima 🇵🇪 → Sydney 🇦🇺
           </div>
         </div>
       </div>
 
-      <!-- Narrative -->
       <div class="reveal stagger-2 space-y-5">
         <p class="text-slate-300 leading-relaxed">{siteConfig.about.intro}</p>
         <p class="text-slate-400 leading-relaxed">{siteConfig.about.current}</p>
@@ -49,7 +66,7 @@ const skillCategories = [
       </div>
     </div>
 
-    <!-- Skills grid -->
+    <!-- Skills grid with icons -->
     <div class="reveal">
       <h3 class="text-xl font-bold text-white mb-8">Tech Stack</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -58,7 +75,10 @@ const skillCategories = [
             <h4 class="text-sm font-mono text-blue-400 mb-3">{cat.label}</h4>
             <div class="flex flex-wrap gap-2">
               {cat.items.map((skill) => (
-                <span class="px-2.5 py-1 text-xs rounded-full bg-white/5 text-slate-300 border border-white/10 hover:border-blue-500/50 hover:text-white transition-all duration-200">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs rounded-full bg-white/5 text-slate-300 border border-white/10 hover:border-blue-500/50 hover:text-white transition-all duration-200">
+                  {skillIconMap[skill] && (
+                    <BrandIcon name={skillIconMap[skill]} size={12} />
+                  )}
                   {skill}
                 </span>
               ))}

@@ -1,56 +1,36 @@
 ---
 import { siteConfig } from "../config";
+import BrandIcon from "./BrandIcon.astro";
 
-const providerColors: Record<string, string> = {
-  Microsoft: "blue",
-  AWS: "amber",
-  Databricks: "rose",
-};
-
-const providerIcons: Record<string, string> = {
-  microsoft: "M11 3H3v8h8V3zm10 0h-8v8h8V3zm-10 10H3v8h8v-8zm10 0h-8v8h8v-8z",
-  aws: "M18.75 11.35a4.32 4.32 0 01-.79-.08 3.56 3.56 0 01-.73-.22l.21-.63c.26.1.48.17.66.21.18.04.37.06.56.06.32 0 .56-.08.73-.24.17-.16.25-.37.25-.65 0-.27-.08-.49-.25-.64-.17-.15-.43-.23-.79-.23h-.48v-.64h.44c.32 0 .55-.08.71-.23.15-.15.23-.35.23-.6 0-.24-.07-.43-.21-.57-.14-.14-.35-.2-.63-.2-.16 0-.33.02-.5.07-.17.05-.36.12-.57.23l-.23-.6a3.5 3.5 0 01.72-.27c.24-.05.48-.08.72-.08.48 0 .85.12 1.12.35.27.23.4.55.4.94 0 .3-.08.55-.25.76-.17.2-.4.34-.69.41v.04c.33.05.59.18.77.39.18.21.27.47.27.79 0 .44-.16.79-.47 1.04-.31.25-.73.38-1.27.38z",
-  ai: "M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5",
+const iconMap: Record<string, string> = {
+  microsoft: "microsoft",
+  aws: "aws",
+  ai: "databricks",
 };
 ---
 
 <section id="certifications" class="relative py-24 md:py-32 bg-[#0a0f1a]">
   <div class="max-w-6xl mx-auto px-6">
-    <!-- Section header -->
     <div class="reveal mb-16">
       <p class="text-sm font-mono text-blue-400 mb-2">// certifications</p>
       <h2 class="text-3xl md:text-4xl font-bold text-white">Credentials</h2>
       <div class="shimmer-bar w-24 mt-4"></div>
     </div>
 
-    <!-- Cert grid -->
     <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
       {siteConfig.certifications.map((cert, i) => (
         <div class={`reveal stagger-${Math.min(i + 1, 6)} glass rounded-xl p-5 card-3d group hover:border-blue-500/30 text-center`}>
           <!-- Provider icon -->
-          <div class="w-12 h-12 mx-auto mb-4 rounded-xl bg-gradient-to-br from-blue-500/20 to-violet-500/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-            {cert.icon === "microsoft" ? (
-              <svg class="w-6 h-6 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M11.4 3H3v8.4h8.4V3zm9.6 0h-8.4v8.4H21V3zm-9.6 9.6H3V21h8.4v-8.4zm9.6 0h-8.4V21H21v-8.4z"/>
-              </svg>
-            ) : cert.icon === "aws" ? (
-              <span class="text-lg font-bold text-amber-400 font-mono">AWS</span>
-            ) : (
-              <svg class="w-6 h-6 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-              </svg>
-            )}
+          <div class="w-14 h-14 mx-auto mb-4 rounded-xl bg-gradient-to-br from-white/5 to-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+            <BrandIcon name={iconMap[cert.icon] || cert.icon} size={28} />
           </div>
 
-          <!-- Cert name -->
           <h3 class="text-sm md:text-base font-semibold text-white mb-1">{cert.name}</h3>
 
-          <!-- Code -->
           {cert.code && (
             <p class="text-[10px] font-mono text-blue-400 mb-2">{cert.code}</p>
           )}
 
-          <!-- Provider -->
           <p class="text-xs text-slate-500">{cert.provider}</p>
         </div>
       ))}
