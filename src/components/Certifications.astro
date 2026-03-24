@@ -2,11 +2,7 @@
 import { siteConfig } from "../config";
 import BrandIcon from "./BrandIcon.astro";
 
-const iconMap: Record<string, string> = {
-  microsoft: "microsoft",
-  aws: "aws",
-  ai: "databricks",
-};
+// No hardcoded map — BrandIcon auto-discovers from public/icons/
 ---
 
 <section id="certifications" class="relative py-24 md:py-32 bg-[#0a0f1a]">
@@ -22,7 +18,7 @@ const iconMap: Record<string, string> = {
         <div class={`reveal stagger-${Math.min(i + 1, 6)} glass rounded-xl p-5 card-3d group hover:border-blue-500/30 text-center`}>
           <!-- Provider icon -->
           <div class="w-14 h-14 mx-auto mb-4 rounded-xl bg-gradient-to-br from-white/5 to-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-            <BrandIcon name={iconMap[cert.icon] || cert.icon} size={28} />
+            <BrandIcon name={cert.provider} size={28} />
           </div>
 
           <h3 class="text-sm md:text-base font-semibold text-white mb-1">{cert.name}</h3>
