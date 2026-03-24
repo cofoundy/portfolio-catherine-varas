@@ -1,6 +1,7 @@
 ---
 import { siteConfig } from "../config";
 import BrandIcon from "./BrandIcon.astro";
+import { getIconInfo } from "../utils/icons";
 ---
 
 <section id="education" class="relative py-24 md:py-32">
@@ -19,8 +20,16 @@ import BrandIcon from "./BrandIcon.astro";
             <div class="flex flex-wrap items-start justify-between gap-2 mb-3">
               <div>
                 <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                  <BrandIcon name={edu.school} size={24} />
-                  {edu.school}
+                  {getIconInfo(edu.school).isLogotype ? (
+                    <BrandIcon name={edu.school} size={24} dark />
+                  ) : getIconInfo(edu.school).file ? (
+                    <Fragment>
+                      <BrandIcon name={edu.school} size={22} dark />
+                      {edu.school}
+                    </Fragment>
+                  ) : (
+                    <Fragment>{edu.school}</Fragment>
+                  )}
                 </h3>
                 <p class="text-sm text-blue-400">{edu.degree}</p>
               </div>
