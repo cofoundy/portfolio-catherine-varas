@@ -4,22 +4,28 @@ import BrandIcon from "./BrandIcon.astro";
 
 // Map skill names to icon slugs (only for skills that have recognizable logos)
 const skillIconMap: Record<string, string> = {
+  // Engineering
   "Java": "java",
   "Python": "python",
   "Apache Spark": "apachespark",
-  "Docker": "docker",
-  "Kubernetes": "kubernetes",
+  "Databricks": "databricks",
+  // Cloud
   "Azure Data Factory": "azure",
   "Azure Fabric": "azure",
   "AWS": "aws",
+  "Docker": "docker",
+  "Kubernetes": "kubernetes",
+  // AI
+  "scikit-learn": "scikitlearn",
+  "Spark MLlib": "apachespark",
+  // Tools
+  "Streamlit": "streamlit",
+  "Git": "git",
+  // Databases
   "PostgreSQL": "postgresql",
-  "Snowflake": "snowflake",
   "Oracle": "oracle",
   "MySQL": "mysql",
-  "GraphQL": "graphql",
-  "Git": "git",
-  "Streamlit": "streamlit",
-  "Databricks": "databricks",
+  "Snowflake": "snowflake",
 };
 
 const skillCategories = [
