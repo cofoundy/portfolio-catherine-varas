@@ -1,12 +1,21 @@
 ---
 /**
- * BrandIcon — File-based icon component
- * All icons are real SVGs from devicon/gilbarbara/simple-icons
- * Downloaded to public/icons/ — zero CDN dependency, zero fabrication
+ * BrandIcon — Manifest-driven icon component
+ * Reads public/icons/ directory at build time. Supports SVG and PNG.
+ * No hardcoded map — if the file exists in public/icons/, it works.
  *
- * Source: devicon (github.com/devicons/devicon) for most
- *         gilbarbara/logos for Snowflake
- *         simple-icons for Databricks
+ * Usage:
+ *   <BrandIcon name="python" size={16} />
+ *   <BrandIcon name="bbva" size={24} />
+ *
+ * How it works:
+ *   1. Normalizes name → lowercase, no spaces ("Apache Spark" → "apachespark")
+ *   2. Checks if public/icons/{name}.svg exists → <img> tag
+ *   3. Else checks public/icons/{name}.png → <img> tag with rounding
+ *   4. Else renders text initials fallback
+ *
+ * Icons are copied to public/icons/ by packages/icons/copy-icons.sh
+ * Source of truth: packages/icons/manifest.json
  */
 interface Props {
   name: string;
@@ -16,50 +25,53 @@ interface Props {
 
 const { name, size = 20, class: className = "" } = Astro.props;
 
-// Map display names → file names in public/icons/
-const iconFiles: Record<string, string> = {
-  // Engineering
-  java: "java",
-  python: "python",
-  apachespark: "apachespark",
-  databricks: "databricks",
-  // Cloud
-  azure: "azure",
-  aws: "aws",
-  docker: "docker",
-  kubernetes: "kubernetes",
-  // Databases
-  postgresql: "postgresql",
-  mysql: "mysql",
-  oracle: "oracle",
-  snowflake: "snowflake",
-  // Tools
-  git: "git",
-  streamlit: "streamlit",
-  graphql: "graphql",
-  powerbi: "powerbi",
-  tableau: "tableau",
-  // AI
-  scikitlearn: "scikitlearn",
-  // Legacy
-  ibm: "ibm",
-  // Providers
-  microsoft: "microsoft",
-};
+// Normalize: "Apache Spark" → "apachespark", "Azure Data Factory" → "azuredatafactory"
+const key = name.toLowerCase().replace(/[\s./+#-]+/g, "");
 
-const key = name.toLowerCase();
-const file = iconFiles[key];
+// Auto-discover from filesystem at build time
+// Astro runs this at build — it's not runtime code
+import fs from "node:fs";
+import path from "node:path";
+
+const iconsDir = path.join(process.cwd(), "public", "icons");
+let iconFile: string | null = null;
+let format: "svg" | "png" | null = null;
+
+// Generate lookup candidates (most specific → least specific)
+const candidates = [
+  key,                                       // "azuredatafactory"
+  key.replace("apache", ""),                 // "apachespark" → "spark"
+  name.toLowerCase().replace(/\s+/g, "-"),   // "Apache Spark" → "apache-spark"
+  key.split(/(?=[A-Z])/).join("").toLowerCase(), // camelCase split
+  // Extract first word as fallback (catches "Azure X" → "azure", "IBM X" → "ibm", "Spark X" → "spark")
+  name.split(/\s+/)[0].toLowerCase(),
+];
+
+for (const candidate of candidates) {
+  const svgPath = path.join(iconsDir, `${candidate}.svg`);
+  const pngPath = path.join(iconsDir, `${candidate}.png`);
+  if (fs.existsSync(svgPath)) {
+    iconFile = `${candidate}.svg`;
+    format = "svg";
+    break;
+  }
+  if (fs.existsSync(pngPath)) {
+    iconFile = `${candidate}.png`;
+    format = "png";
+    break;
+  }
+}
 ---
 
-{file ? (
+{iconFile ? (
   <img
-    src={`/icons/${file}.svg`}
+    src={`/icons/${iconFile}`}
     alt={name}
     width={size}
     height={size}
-    class:list={[className]}
+    class:list={[format === "png" ? "rounded" : "", className]}
     loading="lazy"
-    style="display:inline-block;vertical-align:middle;"
+    style="display:inline-block;vertical-align:middle;object-fit:contain;"
   />
 ) : (
   <span

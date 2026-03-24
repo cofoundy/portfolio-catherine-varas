@@ -2,35 +2,7 @@
 import { siteConfig } from "../config";
 import BrandIcon from "./BrandIcon.astro";
 
-// Map skill names to icon slugs (only for skills that have recognizable logos)
-const skillIconMap: Record<string, string> = {
-  // Engineering
-  "Java": "java",
-  "Python": "python",
-  "Apache Spark": "apachespark",
-  "Databricks": "databricks",
-  // Cloud
-  "Azure Data Factory": "azure",
-  "Azure Fabric": "azure",
-  "AWS": "aws",
-  "Docker": "docker",
-  "Kubernetes": "kubernetes",
-  // AI
-  "scikit-learn": "scikitlearn",
-  "Spark MLlib": "apachespark",
-  // Tools
-  "Power BI": "powerbi",
-  "Streamlit": "streamlit",
-  "Tableau": "tableau",
-  "Git": "git",
-  // Databases
-  "PostgreSQL": "postgresql",
-  "IBM Mainframe": "ibm",
-  "Oracle": "oracle",
-  "MySQL": "mysql",
-  "Snowflake": "snowflake",
-};
-
+// No hardcoded map needed — BrandIcon auto-discovers from public/icons/
 const skillCategories = [
   { label: "Engineering", items: siteConfig.skills.engineering, color: "blue" },
   { label: "Cloud", items: siteConfig.skills.cloud, color: "violet" },
@@ -85,9 +57,7 @@ const skillCategories = [
             <div class="flex flex-wrap gap-2">
               {cat.items.map((skill) => (
                 <span class="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs rounded-full bg-white/5 text-slate-300 border border-white/10 hover:border-blue-500/50 hover:text-white transition-all duration-200">
-                  {skillIconMap[skill] && (
-                    <BrandIcon name={skillIconMap[skill]} size={12} />
-                  )}
+                  <BrandIcon name={skill} size={12} />
                   {skill}
                 </span>
               ))}
