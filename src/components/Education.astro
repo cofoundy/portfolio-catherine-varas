@@ -1,0 +1,43 @@
+---
+import { siteConfig } from "../config";
+---
+
+<section id="education" class="relative py-24 md:py-32">
+  <div class="max-w-4xl mx-auto px-6">
+    <!-- Section header -->
+    <div class="reveal mb-16">
+      <p class="text-sm font-mono text-blue-400 mb-2">// education</p>
+      <h2 class="text-3xl md:text-4xl font-bold text-white">Academic Path</h2>
+      <div class="shimmer-bar w-24 mt-4"></div>
+    </div>
+
+    <div class="space-y-6">
+      {siteConfig.education.map((edu, i) => (
+        <div class={`reveal stagger-${i + 1} ${edu.featured ? 'col-span-full' : ''}`}>
+          <div class={`glass rounded-xl p-6 card-3d ${edu.featured ? 'border-l-2 border-blue-500' : ''}`}>
+            <div class="flex flex-wrap items-start justify-between gap-2 mb-3">
+              <div>
+                <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                  {edu.featured && <span class="text-2xl">🎓</span>}
+                  {edu.school}
+                </h3>
+                <p class="text-sm text-blue-400">{edu.degree}</p>
+              </div>
+              <div class="text-right">
+                <p class="text-xs text-slate-500 font-mono">{edu.dateRange}</p>
+                <p class="text-xs text-slate-600">{edu.location}</p>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              {edu.highlights.map((h) => (
+                <span class="px-2.5 py-1 text-xs rounded-full bg-white/5 text-slate-400 border border-white/10">
+                  {h}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

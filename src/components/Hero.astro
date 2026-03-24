@@ -1,0 +1,222 @@
+---
+import { siteConfig } from "../config";
+---
+
+<section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <!-- Particle Canvas Background -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Gradient overlay for depth -->
+  <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#030712] z-[1]"></div>
+
+  <!-- Content -->
+  <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+    <!-- Name -->
+    <h1 class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold gradient-text mb-4 animate-fade-up">
+      {siteConfig.name}
+    </h1>
+
+    <!-- Rotating tagline -->
+    <div class="h-8 md:h-10 mb-6 animate-fade-up delay-1">
+      <p id="tagline" class="text-lg md:text-2xl text-blue-400 font-mono">
+        {siteConfig.taglines[0]}
+      </p>
+    </div>
+
+    <!-- Description -->
+    <p class="text-sm md:text-base text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-up delay-2">
+      {siteConfig.description}
+    </p>
+
+    <!-- Stats -->
+    <div class="flex flex-wrap justify-center gap-6 md:gap-10 mb-10 animate-fade-up delay-3">
+      {siteConfig.stats.map((stat) => (
+        <div class="text-center">
+          <div class="text-2xl md:text-3xl font-bold gradient-text-blue">{stat.value}</div>
+          <div class="text-xs md:text-sm text-slate-500 mt-1">{stat.label}</div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Social + CTA -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up delay-4">
+      <a
+        href="#projects"
+        class="px-6 py-3 bg-gradient-to-r from-blue-600 to-violet-600 rounded-full text-white text-sm font-medium hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 hover:scale-105"
+      >
+        View My Work
+      </a>
+      <div class="flex items-center gap-3">
+        <a href={siteConfig.social.github} target="_blank" rel="noopener" class="p-2.5 glass rounded-full hover:bg-white/10 transition-all duration-200 group" aria-label="GitHub">
+          <svg class="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+        <a href={siteConfig.social.linkedin} target="_blank" rel="noopener" class="p-2.5 glass rounded-full hover:bg-white/10 transition-all duration-200 group" aria-label="LinkedIn">
+          <svg class="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href={`mailto:${siteConfig.social.email}`} class="p-2.5 glass rounded-full hover:bg-white/10 transition-all duration-200 group" aria-label="Email">
+          <svg class="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-fade-in delay-6">
+      <div class="animate-float">
+        <svg class="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Simplex-noise based particle vortex
+  // Inspired by kalpsenghani.com — Catherine's primary reference
+  (function() {
+    const canvas = document.getElementById('particle-canvas') as HTMLCanvasElement;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    function resize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = width + 'px';
+      canvas.style.height = height + 'px';
+      ctx!.scale(dpr, dpr);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Simple 2D noise (permutation-based, fast)
+    const perm = new Uint8Array(512);
+    const grad = [[1,1],[-1,1],[1,-1],[-1,-1],[1,0],[-1,0],[0,1],[0,-1]];
+    for (let i = 0; i < 256; i++) perm[i] = i;
+    for (let i = 255; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [perm[i], perm[j]] = [perm[j], perm[i]];
+    }
+    for (let i = 0; i < 256; i++) perm[i + 256] = perm[i];
+
+    function fade(t: number) { return t * t * t * (t * (t * 6 - 15) + 10); }
+    function lerp(a: number, b: number, t: number) { return a + t * (b - a); }
+    function dot2(g: number[], x: number, y: number) { return g[0] * x + g[1] * y; }
+
+    function noise2d(x: number, y: number) {
+      const xi = Math.floor(x) & 255;
+      const yi = Math.floor(y) & 255;
+      const xf = x - Math.floor(x);
+      const yf = y - Math.floor(y);
+      const u = fade(xf);
+      const v = fade(yf);
+      const aa = perm[perm[xi] + yi] & 7;
+      const ab = perm[perm[xi] + yi + 1] & 7;
+      const ba = perm[perm[xi + 1] + yi] & 7;
+      const bb = perm[perm[xi + 1] + yi + 1] & 7;
+      return lerp(
+        lerp(dot2(grad[aa], xf, yf), dot2(grad[ba], xf - 1, yf), u),
+        lerp(dot2(grad[ab], xf, yf - 1), dot2(grad[bb], xf - 1, yf - 1), u),
+        v
+      );
+    }
+
+    // Particles
+    const isMobile = width < 768;
+    const count = isMobile ? 200 : 500;
+    const particles: { x: number; y: number; vx: number; vy: number; size: number; hue: number; life: number }[] = [];
+
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: 0,
+        vy: 0,
+        size: Math.random() * 2 + 0.5,
+        hue: 210 + Math.random() * 40, // blue-violet range
+        life: Math.random(),
+      });
+    }
+
+    let time = 0;
+    const noiseScale = 0.003;
+    const speed = 0.8;
+
+    function animate() {
+      time += 0.005;
+      ctx!.fillStyle = 'rgba(3, 7, 18, 0.15)';
+      ctx!.fillRect(0, 0, width, height);
+
+      ctx!.globalCompositeOperation = 'lighter';
+
+      for (const p of particles) {
+        const nx = noise2d(p.x * noiseScale, p.y * noiseScale + time);
+        const ny = noise2d(p.x * noiseScale + 100, p.y * noiseScale + time);
+        const angle = nx * Math.PI * 4;
+
+        p.vx = p.vx * 0.95 + Math.cos(angle) * speed;
+        p.vy = p.vy * 0.95 + Math.sin(angle + ny) * speed;
+        p.x += p.vx;
+        p.y += p.vy;
+
+        // Wrap around
+        if (p.x < -10) p.x = width + 10;
+        if (p.x > width + 10) p.x = -10;
+        if (p.y < -10) p.y = height + 10;
+        if (p.y > height + 10) p.y = -10;
+
+        const alpha = 0.4 + p.life * 0.4;
+        const s = p.size;
+
+        ctx!.beginPath();
+        ctx!.arc(p.x, p.y, s, 0, Math.PI * 2);
+        ctx!.fillStyle = `hsla(${p.hue}, 90%, 65%, ${alpha})`;
+        ctx!.fill();
+
+        // Glow
+        ctx!.beginPath();
+        ctx!.arc(p.x, p.y, s * 3, 0, Math.PI * 2);
+        ctx!.fillStyle = `hsla(${p.hue}, 100%, 60%, ${alpha * 0.15})`;
+        ctx!.fill();
+      }
+
+      ctx!.globalCompositeOperation = 'source-over';
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // Rotating taglines
+    const taglines = [
+      "Building Data Platforms",
+      "Migrating Legacy to Cloud",
+      "Enabling AI Integration",
+      "Engineering Scalable Pipelines",
+    ];
+    let taglineIdx = 0;
+    const taglineEl = document.getElementById('tagline');
+
+    setInterval(() => {
+      taglineIdx = (taglineIdx + 1) % taglines.length;
+      if (taglineEl) {
+        taglineEl.style.opacity = '0';
+        taglineEl.style.transform = 'translateY(10px)';
+        setTimeout(() => {
+          taglineEl.textContent = taglines[taglineIdx];
+          taglineEl.style.opacity = '1';
+          taglineEl.style.transform = 'translateY(0)';
+        }, 300);
+      }
+    }, 3000);
+
+    if (taglineEl) {
+      taglineEl.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+    }
+  })();
+</script>

@@ -1,0 +1,90 @@
+---
+import Nav from "../components/Nav.astro";
+import Hero from "../components/Hero.astro";
+import About from "../components/About.astro";
+import Experience from "../components/Experience.astro";
+import Projects from "../components/Projects.astro";
+import Certifications from "../components/Certifications.astro";
+import Education from "../components/Education.astro";
+import Contact from "../components/Contact.astro";
+import Footer from "../components/Footer.astro";
+import { siteConfig } from "../config";
+import "../styles/global.css";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={siteConfig.description} />
+    <meta name="keywords" content="Data Engineer, Cloud Engineer, Catherine Varas, Azure, AWS, Apache Spark, Python, Java, Data Migration, AI, Sydney, Australia" />
+    <link rel="canonical" href={siteConfig.siteUrl} />
+
+    <!-- OG -->
+    <meta property="og:title" content={`${siteConfig.name} — ${siteConfig.title}`} />
+    <meta property="og:description" content={siteConfig.description} />
+    <meta property="og:image" content={`${siteConfig.siteUrl}/og.jpg`} />
+    <meta property="og:url" content={siteConfig.siteUrl} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={`${siteConfig.siteUrl}/og.jpg`} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+    <!-- Schema.org -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      name: siteConfig.name,
+      jobTitle: siteConfig.title,
+      url: siteConfig.siteUrl,
+      image: `${siteConfig.siteUrl}/profile.png`,
+      sameAs: [siteConfig.social.linkedin, siteConfig.social.github],
+      address: { "@type": "PostalAddress", addressLocality: "Sydney", addressCountry: "AU" },
+      alumniOf: [
+        { "@type": "CollegeOrUniversity", name: "University of Queensland" },
+        { "@type": "CollegeOrUniversity", name: "Peruvian University of Applied Sciences" },
+      ],
+      worksFor: { "@type": "Organization", name: "One51" },
+      knowsAbout: ["Data Engineering", "Cloud Computing", "Apache Spark", "Azure", "AWS", "Python", "Java", "AI"],
+    })} />
+
+    <title>{siteConfig.name} — {siteConfig.title}</title>
+  </head>
+  <body class="bg-[#030712] text-slate-100 antialiased">
+    <Nav />
+    <main>
+      <Hero />
+      <About />
+      <Experience />
+      <Projects />
+      <Certifications />
+      <Education />
+      <Contact />
+    </main>
+    <Footer />
+
+    <!-- Scroll Reveal -->
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('revealed');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { rootMargin: '0px 0px -10% 0px', threshold: 0.1 }
+      );
+      document.querySelectorAll('.reveal, .reveal-scale').forEach(el => observer.observe(el));
+    </script>
+  </body>
+</html>
