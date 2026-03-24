@@ -21,9 +21,10 @@ interface Props {
   name: string;
   size?: number;
   class?: string;
+  dark?: boolean; // Set true on dark backgrounds — applies brightness filter to dark icons
 }
 
-const { name, size = 20, class: className = "" } = Astro.props;
+const { name, size = 20, class: className = "", dark = false } = Astro.props;
 
 // Normalize: "Apache Spark" → "apachespark", "Azure Data Factory" → "azuredatafactory"
 const key = name.toLowerCase().replace(/[\s./+#-]+/g, "");
@@ -63,7 +64,7 @@ for (const candidate of candidates) {
 }
 ---
 
-{iconFile ? (
+{iconFile && (
   <img
     src={`/icons/${iconFile}`}
     alt={name}
@@ -71,13 +72,6 @@ for (const candidate of candidates) {
     height={size}
     class:list={[format === "png" ? "rounded" : "", className]}
     loading="lazy"
-    style="display:inline-block;vertical-align:middle;object-fit:contain;"
+    style={`display:inline-block;vertical-align:middle;object-fit:contain;max-height:${size}px;width:auto;${dark ? 'filter:brightness(0) invert(1) brightness(0.85);' : ''}`}
   />
-) : (
-  <span
-    class:list={["inline-flex items-center justify-center rounded bg-white/10 text-[10px] font-mono text-slate-400", className]}
-    style={`width:${size}px;height:${size}px;`}
-  >
-    {name.slice(0, 2).toUpperCase()}
-  </span>
 )}
