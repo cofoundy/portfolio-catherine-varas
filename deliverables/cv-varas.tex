@@ -1,0 +1,181 @@
+% Harvard-Format Professional CV — Catherine Varas
+% Compile with: xelatex cv-varas.tex
+
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage[margin=0.6in, top=0.5in, bottom=0.5in]{geometry}
+\usepackage{fontspec}
+\usepackage{fontawesome5}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{tabularx}
+
+% --- Fonts (macOS system fonts — always available) ---
+\setmainfont{Times New Roman}
+\setsansfont{Helvetica Neue}
+
+% --- Colors (subtle, Harvard-appropriate) ---
+\definecolor{headrule}{HTML}{2c3e50}
+\definecolor{linkblue}{HTML}{1a5276}
+
+% --- Hyperlinks ---
+\hypersetup{colorlinks=true, urlcolor=linkblue, linkcolor=linkblue, pdfborder={0 0 0}}
+
+% --- Section Formatting (Harvard style: centered, bold, with rules) ---
+\titleformat{\section}
+  {\large\bfseries\centering}
+  {}
+  {0em}
+  {\vspace{-0.4em}\hrulefill\quad}[\quad\hrulefill\vspace{-0.4em}]
+\titlespacing{\section}{0pt}{0.6em}{0.3em}
+
+% --- List Formatting (tight bullets) ---
+\setlist[itemize]{nosep, left=0pt, label=\textbullet, itemsep=1pt, topsep=2pt}
+
+% --- No page numbers ---
+\pagestyle{empty}
+
+% --- Custom Commands ---
+\newcommand{\entry}[4]{%
+  \noindent\textbf{#1} \hfill #2 \par\nopagebreak
+  \textit{#3} \hfill \textit{#4} \par\nopagebreak
+}
+
+\begin{document}
+
+% ============================================
+% HEADER
+% ============================================
+\begin{center}
+  {\LARGE\bfseries Catherine Varas} \\[4pt]
+  \faIcon{map-marker-alt}\enspace Sydney, Australia
+  \quad\faIcon{envelope}\enspace \href{mailto:catherine.varas.padilla@gmail.com}{catherine.varas.padilla@gmail.com}
+  \\[2pt]
+  \faIcon{linkedin}\enspace \href{https://www.linkedin.com/in/catherine-varas/}{linkedin.com/in/catherine-varas}
+  \quad\faIcon{github}\enspace \href{https://github.com/catherinevaraspadilla-commits/}{catherinevaraspadilla-commits}
+  \quad\faIcon{globe}\enspace \href{https://catherine-varas.cofoundy.dev}{catherine-varas.cofoundy.dev}
+\end{center}
+
+\vspace{-0.4em}
+\noindent\rule{\textwidth}{0.8pt}
+\vspace{-0.8em}
+
+% ============================================
+% EXPERIENCE
+% ============================================
+\section{Experience}
+
+\entry{One51 — Data \& Analytics Consultancy}{Sydney, Australia}{Data Engineering Intern}{Jul 2025 -- Present}
+\begin{itemize}
+  \item Developed Python scripts and interactive Streamlit application for QlikView-to-Power BI migration metadata analysis, enabling data-driven platform transition decisions
+  \item Implemented RAG framework in Azure AI Foundry for automated T-SQL translation, reducing manual SQL conversion effort by 80\%+
+  \item Built metadata visualization dashboards serving cross-functional stakeholders across 3+ concurrent migration projects
+\end{itemize}
+\vspace{0.3em}
+
+\entry{BBVA Per\'{u} — One of Latin America's Largest Banks}{Lima, Peru}{Associate Data Engineer}{Jun 2024 -- Jan 2025}
+\begin{itemize}
+  \item Led migration of millions of contractual records from IBM Mainframe to cloud infrastructure, ensuring zero data loss across 5+ banking product lines
+  \item Engineered Apache Spark transformation pipelines with Control-M orchestration, processing large-scale batch workloads for regulatory compliance
+  \item Designed and implemented data quality frameworks validating banking records against compliance standards, reducing data discrepancies by 40\%+
+  \item Developed Java backend routines for Mainframe/Oracle coexistence model, bridging legacy and modern systems for 200+ internal users
+  \item Managed centralized contracts module across multiple squads, coordinating database schema and backend service delivery
+\end{itemize}
+\vspace{0.3em}
+
+\entry{BBVA Per\'{u}}{Lima, Peru}{Junior Data Engineer}{Oct 2022 -- Jun 2024}
+\begin{itemize}
+  \item Built Spark data pipelines for banking product data migration to cloud, processing and transforming records into optimized Parquet format
+  \item Deployed and maintained 70+ components including Java backend services, Spark batch jobs, and database scripts across production environments
+  \item Created reusable Spark modules for data cleaning, validation, and loading, reducing pipeline development time for new data sources by 50\%+
+  \item Automated parameterized data quality checks via Spark, eliminating manual validation across multiple product datasets
+  \item Collaborated with international engineering teams across Colombia, Mexico, and Spain on shared banking data platform initiatives
+\end{itemize}
+\vspace{0.3em}
+
+\entry{Kyndryl}{Lima, Peru}{Cloud Computing Intern}{Feb 2022 -- Oct 2022}
+\begin{itemize}
+  \item Conducted disaster recovery architectural analysis for enterprise clients, evaluating failover strategies across Azure cloud infrastructure
+  \item Contributed to Data Engineering community, sharing best practices and documentation for cloud migration patterns
+\end{itemize}
+\vspace{0.3em}
+
+\entry{Vida Software}{Lima, Peru}{Business Intelligence Analyst}{Jul 2021 -- Feb 2022}
+\begin{itemize}
+  \item Processed Big Data workloads and built retail performance reporting pipelines, delivering insights for 10+ retail client accounts
+  \item Developed Hasura GraphQL-to-SQL Server integration pipelines, automating data flow between frontend and backend systems
+  \item Designed Power BI dashboards for retail clients, enabling real-time KPI monitoring and data-driven decision making
+  \item Built Python automation scripts reducing manual data processing tasks by 60\%+
+\end{itemize}
+\vspace{0.3em}
+
+% ============================================
+% PROJECTS
+% ============================================
+\section{Projects \& Achievements}
+
+\entry{T-SQL to Snowflake RAG Translator}{Python, RAG, LLM, Snowflake}{Lead Developer}{2026}
+\begin{itemize}
+  \item Architected AI-powered engine transforming legacy T-SQL into modern Snowflake SQL using RAG pipelines, LLM reasoning, and deterministic validators
+\end{itemize}
+\vspace{0.3em}
+
+\entry{YOLO + SAM2 Lab Tracking}{Python, YOLOv8, SAM2, Computer Vision}{Developer}{2026}
+\begin{itemize}
+  \item Built automatic multi-rat tracking system combining YOLOv8 real-time object detection with SAM2 high-accuracy segmentation for laboratory research
+\end{itemize}
+\vspace{0.3em}
+
+\entry{Traffic Big Data Analysis — Sydney}{Spark, HDFS, Docker}{Developer}{2025}
+\begin{itemize}
+  \item Analyzed Sydney traffic data using Apache Spark and HDFS in containerized environments for large-scale distributed processing
+\end{itemize}
+\vspace{0.3em}
+
+\entry{Harvest-Jira Automation Engine}{Python, REST API}{Developer}{2025}
+\begin{itemize}
+  \item Engineered API synchronization tool between Harvest time-tracking and Jira, automating project management workflows across teams
+\end{itemize}
+\vspace{0.3em}
+
+% ============================================
+% EDUCATION
+% ============================================
+\section{Education}
+
+\entry{University of Queensland}{Brisbane, Australia}{Master in Data Science}{Feb 2025 -- Jun 2026}
+\begin{itemize}
+  \item Coursework: Cloud Computing (Kubernetes, Docker), Machine Learning, Artificial Intelligence, Data Analytics
+\end{itemize}
+\vspace{0.3em}
+
+\entry{Peruvian University of Applied Sciences (UPC)}{Lima, Peru}{Bachelor of Industrial Engineering}{2019 -- 2023}
+\begin{itemize}
+  \item Focus: Project Management, Process Optimization, Systems Design
+\end{itemize}
+\vspace{0.3em}
+
+\entry{Institute Cibertec}{Lima, Peru}{Associate's in Computer Science}{2019 -- 2022}
+\begin{itemize}
+  \item Coursework: SQL, Java, Python, C\#, Oracle, Web Development
+\end{itemize}
+\vspace{0.3em}
+
+% ============================================
+% SKILLS & ADDITIONAL
+% ============================================
+\section{Skills \& Additional}
+
+\begin{tabularx}{\textwidth}{@{}l X@{}}
+\textbf{Data Engineering:} & Java, Python, Apache Spark, SQL, ETL Pipelines, Databricks, Control-M \\
+\textbf{Cloud \& DevOps:} & Azure (Data Factory, Fabric, AI Foundry), AWS, Docker, Kubernetes, CI/CD \\
+\textbf{AI \& ML:} & RAG, LLMs, Spark MLlib, scikit-learn, MLOps, Prompt Engineering, Generative AI \\
+\textbf{Visualization:} & Power BI, Streamlit, Tableau, Snowflake \\
+\textbf{Databases:} & PostgreSQL, Oracle, MySQL, IBM Mainframe, SQL Server \\
+\textbf{Certifications:} & Microsoft Fabric Data Engineer (DP-700), Fabric Analytics Engineer (DP-600), Power BI Data Analyst (PL-300), AWS Cloud Practitioner, Azure Fundamentals (AZ-900), Generative AI Fundamentals (Databricks) \\
+\textbf{Languages:} & English (Professional), Spanish (Native) \\
+\end{tabularx}
+
+\end{document}
