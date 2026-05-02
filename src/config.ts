@@ -35,7 +35,7 @@ export const siteConfig = {
   social: {
     email: "catherine.varas.padilla@gmail.com",
     linkedin: "https://www.linkedin.com/in/catherine-varas/",
-    github: "https://github.com/catherinevaraspadilla-commits/",
+    github: "https://github.com/CateHey",
   },
 
   about: {
@@ -120,28 +120,34 @@ export const siteConfig = {
 
   projects: [
     {
-      name: "T-SQL → Snowflake RAG Translator",
-      description: "AI-powered engine that transforms legacy T-SQL into modern Snowflake SQL using RAG, LLM reasoning, and deterministic validators.",
-      github: "https://github.com/catherinevaraspadilla-commits/tsql-to-snowflake-llm-rag-translator",
-      tags: ["Python", "RAG", "LLM", "Snowflake", "MIT"],
+      name: "AI Snowflake Migration Tool",
+      description: "AI-driven code translation engine using LLMs, a custom Retrieval-Augmented Generation (RAG) pipeline, and deterministic validators.",
+      github: "https://github.com/CateHey/ai_snowflake_migration_tool",
+      tags: ["Python", "RAG", "LLM", "Snowflake"],
     },
     {
-      name: "YOLO + SAM2 Lab Tracking",
-      description: "Automatic multi-rat tracking using YOLOv8 and SAM2. Real-time object detection combined with high-accuracy segmentation for laboratory research.",
-      github: "https://github.com/catherinevaraspadilla-commits/yolo-sam2-lab-tracking",
+      name: "Computer Vision Tracking",
+      description: "Computer vision pipeline built with neural networks models such as YOLO and SAM2 to track animals movement for Queensland Brain Institute.",
+      github: "https://github.com/CateHey/computer-vision-tracking",
       tags: ["Python", "YOLOv8", "SAM2", "Computer Vision"],
     },
     {
-      name: "Traffic Big Data Spark HDFS",
-      description: "Analyzes Sydney traffic data using Apache Spark and HDFS in containerized environments for large-scale distributed processing.",
-      github: "https://github.com/catherinevaraspadilla-commits/traffic-bigdata-spark-hdfs",
-      tags: ["Spark", "HDFS", "Docker", "Big Data"],
+      name: "AWS Deployed System",
+      description: "Medical system for start-up deployed in AWS cloud services with scalable architecture.",
+      github: "https://github.com/CateHey/aws_deployed_system",
+      tags: ["Python", "AWS", "Cloud", "Healthcare"],
     },
     {
-      name: "Harvest-Jira Automation Engine",
-      description: "Synchronizes Harvest time-tracking with Jira via API automation, streamlining project management workflows.",
-      github: "https://github.com/catherinevaraspadilla-commits/Harvest-Jira-Automation-Engine",
-      tags: ["Python", "REST API", "Automation", "MIT"],
+      name: "Predictive Maintenance Lakehouse",
+      description: "Predictive Maintenance Pipeline for Industrial IoT using lakehouse architecture.",
+      github: "https://github.com/CateHey/predictive-maintenance-lakehouse-industrial",
+      tags: ["Jupyter", "IoT", "Machine Learning", "Data Pipeline"],
+    },
+    {
+      name: "Traffic Analysis Spark HDFS",
+      description: "Big data pipeline built with Spark using HDFS files to analyze traffic and identify causes of it in Sydney.",
+      github: "https://github.com/CateHey/traffic-analysis-spark-hdfs-pipeline",
+      tags: ["Spark", "HDFS", "Docker", "Big Data"],
     },
   ],
 
