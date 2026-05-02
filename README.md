@@ -33,6 +33,32 @@ npm run dev      # http://localhost:4321
 npm run build    # Generar sitio estático
 ```
 
+## Deploy (GitHub Pages)
+
+El sitio se sirve desde el branch `gh-pages`. Para redesplegar después de hacer cambios:
+
+```bash
+# 1. Build
+npm run build
+
+# 2. Cambiar al branch de deploy
+git checkout gh-pages
+
+# 3. Copiar archivos del build a la raíz
+# En PowerShell:
+Copy-Item -Path "dist\*" -Destination "." -Recurse -Force
+
+# 4. Commit y push
+git add .
+git commit -m "deploy: descripción del cambio"
+git push origin gh-pages
+
+# 5. Volver al branch principal
+git checkout main
+```
+
+El sitio se actualiza automáticamente en [catherinevaras.com](https://catherinevaras.com/) en 1-2 minutos.
+
 ---
 
 <p align="center">
