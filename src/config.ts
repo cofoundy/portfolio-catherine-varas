@@ -152,6 +152,8 @@ export const siteConfig = {
       name: "T-SQL to Databricks LLM + RAG Translator",
       description: "AI-powered engine that transforms legacy T-SQL into modern Databricks SQL using RAG, LLM reasoning, and deterministic validators for safe, reliable migration.",
       github: "https://github.com/CateHey/rag_databricks_migration_tool",
+      live: "https://vercel-app-sooty-ten.vercel.app",
+      image: "/projects/databricks-translator.png",
       tags: ["Python", "RAG", "LLM", "Databricks"],
     },
     {
