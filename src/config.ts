@@ -46,7 +46,7 @@ export const siteConfig = {
   skills: {
     engineering: ["Python", "R", "Java", "SQL", "Bash", "C#", "JavaScript"],
     ai: ["YOLO", "SAM2", "Neural Networks", "HuggingFace", "RAG", "scikit-learn", "Deep Learning", "Computer Vision", "Agentic AI", "LangChain", "n8n"],
-    cloud: ["Azure ML", "Azure Functions", "Azure AI Search", "AWS", "GCP", "HPC", "GPU Streaming"],
+    cloud: ["Azure", "Azure ML", "Azure Functions", "Azure AI Search", "Azure Data Factory", "AWS", "GCP", "HPC", "GPU Streaming"],
     tools: ["Dash/Plotly", "Power BI", "Streamlit", "matplotlib", "Git", "CI/CD"],
     databases: ["Oracle", "SQL Server", "PostgreSQL", "MySQL", "Elasticsearch"],
   },
@@ -149,12 +149,12 @@ export const siteConfig = {
       tags: ["n8n", "AI Agent", "WhatsApp", "Vercel"],
     },
     {
-      name: "T-SQL to Databricks LLM + RAG Translator",
+      name: "Databricks RAG Migration Tool",
       description: "AI-powered engine that transforms legacy T-SQL into modern Databricks SQL using RAG, LLM reasoning, and deterministic validators for safe, reliable migration.",
       github: "https://github.com/CateHey/rag_databricks_migration_tool",
       live: "https://vercel-app-sooty-ten.vercel.app",
       image: "/projects/databricks-translator.png",
-      tags: ["Python", "RAG", "LLM", "Databricks"],
+      tags: ["Python", "RAG", "LLM", "Databricks", "Azure", "Azure Foundry"],
     },
     {
       name: "Computer Vision Tracking",
@@ -164,10 +164,10 @@ export const siteConfig = {
       tags: ["Python", "YOLOv8", "SAM2", "Computer Vision"],
     },
     {
-      name: "AWS Deployed System",
-      description: "Medical system for start-up deployed in AWS cloud services with scalable architecture.",
-      github: "https://github.com/CateHey/aws_deployed_system",
-      tags: ["Python", "AWS", "Cloud", "Healthcare"],
+      name: "Cloud-Native Healthcare Platform",
+      description: "End-to-end cloud architecture for a healthcare startup — designed and deployed scalable backend services, API layer, and infrastructure on AWS with CI/CD pipelines and production-grade monitoring.",
+      github: "https://github.com/CateHey/cloud-healthcare-platform",
+      tags: ["Python", "AWS", "CI/CD", "Cloud Architecture"],
     },
     {
       name: "Predictive Maintenance Lakehouse",
