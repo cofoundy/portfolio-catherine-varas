@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "Catherine Varas",
   title: "AI & Data Engineer",
-  description: "AI & Data Engineer focused on designing and implementing AI systems end to end — from the data infrastructure that feeds the models to the orchestration layers that make them work in production. My experience spans agentic AI and RAG systems for enterprise clients, large-scale cloud migrations, and scalable data architectures across industries.",
+  description: "AI & Data Engineer with 5+ years of experience designing and implementing scalable data pipelines, cloud infrastructure, software solutions and intelligent automation, along with 2+ years focused on AI systems.",
   siteUrl: "https://catherine-varas.cofoundy.dev",
 
   colors: {
@@ -37,10 +37,10 @@ export const siteConfig = {
   },
 
   about: {
-    intro: "AI & Data Engineer focused on designing and implementing AI systems. I work across the full picture, from the data infrastructure that feeds the models to the orchestration layers that make them work in production. My experience spans computer vision pipelines for scientific research, RAG and automation systems for enterprise clients, and large-scale data architectures across different industries.",
+    intro: "AI & Data Engineer with 5+ years of experience designing and implementing scalable data pipelines, cloud infrastructure, software solutions and intelligent automation, along with 2+ years focused on AI systems.",
     journey: "Lima, Peru → Brisbane, Australia",
-    current: "Having worked across data engineering, software architecture, and applied AI helps me design systems that are robust and actually hold up in production. I bring a research-driven approach to every problem, I learn the domain, understand the data, and deliver solutions that work reliably at scale.",
-    superpower: "I'm keen to be part of projects in AI, machine learning, or data architecture, with a team tackling meaningful problems.",
+    current: "Having worked across data engineering, software architecture, and applied AI helps me to design systems that are robust and hold up in production. I bring a research-driven approach to every problem, I learn the domain, understand the data, and deliver solutions that work reliably at scale.",
+    superpower: "",
   },
 
   skills: {
