@@ -171,6 +171,8 @@ export const siteConfig = {
       name: "Predictive Maintenance Lakehouse",
       description: "Predictive Maintenance Pipeline for Industrial IoT using lakehouse architecture.",
       github: "https://github.com/CateHey/predictive-maintenance-lakehouse-industrial",
+      live: "https://predictive-maintenance-lakehouse-industrial-hi3j0wxd6.vercel.app/",
+      image: "/projects/maintenance-dashboard.png",
       tags: ["Jupyter", "IoT", "Machine Learning", "Data Pipeline"],
     },
     {
