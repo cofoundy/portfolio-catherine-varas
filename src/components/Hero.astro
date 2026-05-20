@@ -2,7 +2,7 @@
 import { siteConfig } from "../config";
 ---
 
-<section id="hero" class="relative min-h-[55vh] flex items-center justify-center overflow-hidden">
+<section id="hero" class="relative min-h-[85vh] flex items-center justify-center overflow-hidden pt-24">
   <!-- Ambient gradient blobs -->
   <div class="absolute inset-0 overflow-hidden">
     <div id="blob-a" class="absolute w-[500px] h-[500px] rounded-full opacity-20 blur-[120px] bg-blue-600"></div>
@@ -15,10 +15,19 @@ import { siteConfig } from "../config";
 
   <!-- Content -->
   <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+    <!-- Badge -->
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 glass rounded-full mb-6 animate-fade-up">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span class="text-xs md:text-sm text-slate-300 font-mono tracking-wider uppercase">Data & AI Engineer</span>
+    </div>
+
     <!-- Name -->
-    <h1 class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold gradient-text mb-4 animate-fade-up">
+    <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold hero-name-shimmer mb-2 animate-fade-up leading-tight">
       {siteConfig.name}
     </h1>
+
+    <!-- Decorative separator -->
+    <div class="w-24 md:w-32 h-1 mx-auto mb-6 rounded-full bg-gradient-to-r from-blue-500 via-violet-500 to-pink-500 animate-fade-up delay-1"></div>
 
     <!-- Rotating tagline -->
     <div class="h-8 md:h-10 mb-6 animate-fade-up delay-1">

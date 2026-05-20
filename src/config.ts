@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "Catherine Varas",
   title: "AI & Data Engineer",
-  description: "AI & Data Engineer specializing in AI-powered solutions, cloud data platforms, and large-scale migrations. 4+ years of experience building robust data pipelines and crafting AI solutions.",
+  description: "AI & Data Engineer focused on designing and implementing AI systems end to end — from the data infrastructure that feeds the models to the orchestration layers that make them work in production. My experience spans agentic AI and RAG systems for enterprise clients, large-scale cloud migrations, and scalable data architectures across industries.",
   siteUrl: "https://catherine-varas.cofoundy.dev",
 
   colors: {
@@ -26,7 +26,7 @@ export const siteConfig = {
   ],
 
   stats: [
-    { value: "4+", label: "Years Experience" },
+    { value: "+5", label: "Years Experience" },
     { value: "6", label: "Cloud Certifications" },
   ],
 
@@ -45,7 +45,7 @@ export const siteConfig = {
 
   skills: {
     engineering: ["Python", "R", "Java", "SQL", "Bash", "C#", "JavaScript"],
-    ai: ["YOLO", "SAM2", "Neural Networks", "HuggingFace", "RAG", "scikit-learn", "Deep Learning", "Computer Vision"],
+    ai: ["YOLO", "SAM2", "Neural Networks", "HuggingFace", "RAG", "scikit-learn", "Deep Learning", "Computer Vision", "Agentic AI", "LangChain", "n8n"],
     cloud: ["Azure ML", "Azure Functions", "Azure AI Search", "AWS", "GCP", "HPC", "GPU Streaming"],
     tools: ["Dash/Plotly", "Power BI", "Streamlit", "matplotlib", "Git", "CI/CD"],
     databases: ["Oracle", "SQL Server", "PostgreSQL", "MySQL", "Elasticsearch"],
@@ -139,15 +139,26 @@ export const siteConfig = {
 
   projects: [
     {
-      name: "AI Snowflake Migration Tool",
-      description: "AI-driven code translation engine using LLMs, a custom Retrieval-Augmented Generation (RAG) pipeline, and deterministic validators.",
-      github: "https://github.com/CateHey/ai_snowflake_migration_tool",
-      tags: ["Python", "RAG", "LLM", "Snowflake"],
+      name: "MineOps Dispatch",
+      description: "WhatsApp-to-control-room automation for mining operations. AI agent classifies field reports, updates the operations database, and confirms back to the operator — end to end in under 3 seconds.",
+      github: "https://github.com/CateHey/mining_operations_n8n_automation",
+      live: "https://mining-operations-n8n-automation-2d.vercel.app/",
+      liveLabel: "Demo based on request",
+      hideGithub: true,
+      image: "/projects/mineops-dashboard.png",
+      tags: ["n8n", "AI Agent", "WhatsApp", "Vercel"],
+    },
+    {
+      name: "T-SQL to Databricks LLM + RAG Translator",
+      description: "AI-powered engine that transforms legacy T-SQL into modern Databricks SQL using RAG, LLM reasoning, and deterministic validators for safe, reliable migration.",
+      github: "https://github.com/CateHey/rag_databricks_migration_tool",
+      tags: ["Python", "RAG", "LLM", "Databricks"],
     },
     {
       name: "Computer Vision Tracking",
       description: "Computer vision pipeline built with neural networks models such as YOLO and SAM2 to track animals movement for Queensland Brain Institute.",
       github: "https://github.com/CateHey/computer-vision-tracking",
+      video: "/projects/computer-vision-tracking.mp4",
       tags: ["Python", "YOLOv8", "SAM2", "Computer Vision"],
     },
     {
@@ -166,6 +177,8 @@ export const siteConfig = {
       name: "Traffic Analysis Spark HDFS",
       description: "Big data pipeline built with Spark using HDFS files to analyze traffic and identify causes of it in Sydney.",
       github: "https://github.com/CateHey/traffic-analysis-spark-hdfs-pipeline",
+      live: "https://traffic-analysis-spark-hdfs-pipelin.vercel.app/",
+      image: "/projects/traffic-analysis-spark.png",
       tags: ["Spark", "HDFS", "Docker", "Big Data"],
     },
   ],
@@ -221,7 +234,7 @@ export const siteConfig = {
     {
       school: "University of La Rioja (UNIR)",
       degree: "Master of Artificial Intelligence",
-      dateRange: "2024 – 2026",
+      dateRange: "2024 – 2025",
       location: "Spain",
       highlights: ["Generative AI", "Machine Learning", "Computer Vision", "Neural Networks"],
     },

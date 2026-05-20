@@ -14,43 +14,81 @@ import { siteConfig } from "../config";
     <!-- Project grid -->
     <div class="grid md:grid-cols-2 gap-6">
       {siteConfig.projects.map((project, i) => (
-        <a
-          href={project.github}
-          target="_blank"
-          rel="noopener"
-          class={`reveal stagger-${Math.min(i + 1, 4)} group block`}
-        >
-          <div class="glass rounded-xl p-6 h-full card-3d card-glow transition-all duration-300 hover:border-blue-500/30">
-            <!-- Header -->
-            <div class="flex items-start justify-between mb-4">
-              <div class="p-2.5 rounded-lg bg-blue-500/10">
-                <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
-                </svg>
+        <div class={`reveal stagger-${Math.min(i + 1, 4)} group`}>
+          <div class="glass rounded-xl overflow-hidden h-full card-3d card-glow transition-all duration-300 hover:border-blue-500/30">
+            {/* Preview */}
+            {(project.image || project.video) && (
+              <a href={project.live || project.github} target="_blank" rel="noopener" class="block">
+                <div class="relative overflow-hidden">
+                  {project.video ? (
+                    <video
+                      src={project.video}
+                      autoplay
+                      loop
+                      muted
+                      playsinline
+                      class="w-full h-48 object-cover object-top"
+                    />
+                  ) : (
+                    <img
+                      src={project.image}
+                      alt={`${project.name} preview`}
+                      class="w-full h-48 object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  )}
+                  <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent" />
+                </div>
+              </a>
+            )}
+
+            <div class="p-6">
+              {/* Header */}
+              <div class="flex items-start justify-between mb-4">
+                <div class="p-2.5 rounded-lg bg-blue-500/10">
+                  <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
+                  </svg>
+                </div>
+                <div class="flex items-center gap-2">
+                  {project.live && (
+                    <a
+                      href={project.live}
+                      target="_blank"
+                      rel="noopener"
+                      class="flex items-center gap-1 px-2.5 py-1 text-[11px] font-mono rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20 transition-colors"
+                    >
+                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      {project.liveLabel || "Live Demo"}
+                    </a>
+                  )}
+                  {!project.hideGithub && (
+                    <a href={project.github} target="_blank" rel="noopener" class="text-slate-500 hover:text-white transition-colors" aria-label="GitHub repo">
+                      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    </a>
+                  )}
+                </div>
               </div>
-              <svg class="w-5 h-5 text-slate-600 group-hover:text-blue-400 transition-colors transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H7M17 7v10"/>
-              </svg>
-            </div>
 
-            <!-- Title -->
-            <h3 class="text-lg font-bold text-white mb-2 group-hover:gradient-text transition-all duration-300">
-              {project.name}
-            </h3>
+              {/* Title */}
+              <h3 class="text-lg font-bold text-white mb-2 group-hover:gradient-text transition-all duration-300">
+                {project.name}
+              </h3>
 
-            <!-- Description -->
-            <p class="text-sm text-slate-400 mb-5 leading-relaxed">{project.description}</p>
+              {/* Description */}
+              <p class="text-sm text-slate-400 mb-5 leading-relaxed">{project.description}</p>
 
-            <!-- Tags -->
-            <div class="flex flex-wrap gap-1.5 mt-auto">
-              {project.tags.map((tag) => (
-                <span class="px-2 py-0.5 text-[10px] font-mono rounded bg-violet-500/10 text-violet-300 border border-violet-500/20">
-                  {tag}
-                </span>
-              ))}
+              {/* Tags */}
+              <div class="flex flex-wrap gap-1.5 mt-auto">
+                {project.tags.map((tag) => (
+                  <span class="px-2 py-0.5 text-[10px] font-mono rounded bg-violet-500/10 text-violet-300 border border-violet-500/20">
+                    {tag}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
-        </a>
+        </div>
       ))}
     </div>
 
