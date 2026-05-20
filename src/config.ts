@@ -40,7 +40,7 @@ export const siteConfig = {
     intro: "AI & Data Engineer with 5+ years of experience designing and implementing scalable data pipelines, cloud infrastructure, software solutions and intelligent automation, along with 2+ years focused on AI systems.",
     journey: "Lima, Peru → Brisbane, Australia",
     current: "Having worked across data engineering, software architecture, and applied AI helps me to design systems that are robust and hold up in production. I bring a research-driven approach to every problem, I learn the domain, understand the data, and deliver solutions that work reliably at scale.",
-    superpower: "",
+    superpower: "Ready to create innovative solutions and use the latest technology to help solve problems.",
   },
 
   skills: {
