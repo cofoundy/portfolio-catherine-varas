@@ -164,12 +164,6 @@ export const siteConfig = {
       tags: ["Python", "YOLOv8", "SAM2", "Computer Vision"],
     },
     {
-      name: "Cloud-Native Healthcare Platform",
-      description: "End-to-end cloud architecture for a healthcare startup — designed and deployed scalable backend services, API layer, and infrastructure on AWS with CI/CD pipelines and production-grade monitoring.",
-      github: "https://github.com/CateHey/cloud-healthcare-platform",
-      tags: ["Python", "AWS", "CI/CD", "Cloud Architecture"],
-    },
-    {
       name: "Predictive Maintenance Lakehouse",
       description: "Predictive Maintenance Pipeline for Industrial IoT using lakehouse architecture.",
       github: "https://github.com/CateHey/predictive-maintenance-lakehouse-industrial",
@@ -184,6 +178,14 @@ export const siteConfig = {
       live: "https://traffic-analysis-spark-hdfs-pipelin.vercel.app/",
       image: "/projects/traffic-analysis-spark.png",
       tags: ["Spark", "HDFS", "Docker", "Big Data"],
+    },
+    {
+      name: "Cloud-Native Healthcare Platform",
+      description: "End-to-end cloud architecture for a healthcare startup. Test credentials — operador@cmep.local / operador123 (OPERADOR), gestor@cmep.local / gestor123 (GESTOR), medico@cmep.local / medico123 (MÉDICO).",
+      github: "https://github.com/CateHey/cloud-healthcare-platform",
+      live: "https://cloud-healthcare-platform.vercel.app/",
+      image: "/projects/healthcare-platform.png",
+      tags: ["Python", "AWS", "CI/CD", "Cloud Architecture"],
     },
   ],
 
