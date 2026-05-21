@@ -139,16 +139,6 @@ export const siteConfig = {
 
   projects: [
     {
-      name: "MineOps Dispatch",
-      description: "WhatsApp-to-control-room automation for mining operations. AI agent classifies field reports, updates the operations database, and confirms back to the operator — end to end in under 3 seconds.",
-      github: "https://github.com/CateHey/mining_operations_n8n_automation",
-      live: "https://mining-operations-n8n-automation-2d.vercel.app/",
-      liveLabel: "Demo based on request",
-      hideGithub: true,
-      image: "/projects/mineops-dashboard.png",
-      tags: ["n8n", "AI Agent", "WhatsApp", "Vercel"],
-    },
-    {
       name: "Databricks RAG Migration Tool",
       description: "AI-powered engine that transforms legacy T-SQL into modern Databricks SQL using RAG, LLM reasoning, and deterministic validators for safe, reliable migration.",
       github: "https://github.com/CateHey/rag_databricks_migration_tool",
@@ -186,6 +176,16 @@ export const siteConfig = {
       live: "https://cloud-healthcare-platform.vercel.app/",
       image: "/projects/healthcare-platform.png",
       tags: ["Python", "AWS", "CI/CD", "Cloud Architecture"],
+    },
+    {
+      name: "MineOps Dispatch",
+      description: "WhatsApp-to-control-room automation for mining operations. AI agent classifies field reports, updates the operations database, and confirms back to the operator — end to end in under 3 seconds.",
+      github: "https://github.com/CateHey/mining_operations_n8n_automation",
+      live: "https://mining-operations-n8n-automation-2d.vercel.app/",
+      liveLabel: "Demo based on request",
+      hideGithub: true,
+      image: "/projects/mineops-dashboard.png",
+      tags: ["n8n", "AI Agent", "WhatsApp", "Vercel"],
     },
   ],
 
