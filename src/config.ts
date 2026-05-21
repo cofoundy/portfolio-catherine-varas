@@ -140,7 +140,7 @@ export const siteConfig = {
   projects: [
     {
       name: "Databricks RAG Migration Tool",
-      description: "AI-powered engine that transforms legacy T-SQL into modern Databricks SQL using RAG, LLM reasoning, and deterministic validators for safe, reliable migration.",
+      description: "AI-powered system that transforms legacy T-SQL into modern Databricks SQL using RAG, LLM reasoning, and deterministic validators for safe, reliable migration.",
       github: "https://github.com/CateHey/rag_databricks_migration_tool",
       live: "https://vercel-app-sooty-ten.vercel.app",
       image: "/projects/databricks-translator.png",
@@ -179,7 +179,7 @@ export const siteConfig = {
     },
     {
       name: "MineOps Dispatch",
-      description: "WhatsApp-to-control-room automation for mining operations. AI agent classifies field reports, updates the operations database, and confirms back to the operator — end to end in under 3 seconds.",
+      description: "Agentic AI system that automates mining field operations via WhatsApp. An AI agent receives operator reports, classifies incidents, updates the control room database, and sends real-time confirmations — fully autonomous, end to end.",
       github: "https://github.com/CateHey/mining_operations_n8n_automation",
       live: "https://mining-operations-n8n-automation-2d.vercel.app/",
       liveLabel: "Demo based on request",
