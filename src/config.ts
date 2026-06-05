@@ -171,9 +171,10 @@ export const siteConfig = {
     },
     {
       name: "Cloud-Native Healthcare Platform",
-      description: "End-to-end cloud architecture for a healthcare startup. Test credentials — operador@cmep.local / operador123 (OPERADOR), gestor@cmep.local / gestor123 (GESTOR), medico@cmep.local / medico123 (MÉDICO).",
+      description: "End-to-end cloud architecture for a healthcare startup, covering infrastructure, CI/CD, and role-based access control. Demo note: the live site runs in demo mode and may take ~2 min to load (cold start). Test credentials — operador@cmep.local / operador123 (OPERADOR), gestor@cmep.local / gestor123 (GESTOR), medico@cmep.local / medico123 (MÉDICO).",
       github: "https://github.com/CateHey/cloud-healthcare-platform",
       live: "https://cloud-healthcare-platform.vercel.app/",
+      liveLabel: "Live Demo (~2 min load)",
       image: "/projects/healthcare-platform.png",
       tags: ["Python", "AWS", "CI/CD", "Cloud Architecture"],
     },
