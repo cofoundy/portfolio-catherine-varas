@@ -8,7 +8,8 @@
  * Usage:
  *   <BrandIcon name="Python" size={14} />         → square icon, 14x14
  *   <BrandIcon name="BBVA" size={24} />            → wide logotype, height=24, width=auto
- *   <BrandIcon name="Docker" size={16} dark />     → inverted for dark backgrounds
+ *   <BrandIcon name="Docker" size={16} dark />     → inverted to white for dark backgrounds
+ *   <BrandIcon name="UQ" size={16} mono />         → flattened to ink colour for light backgrounds
  *
  * Renders nothing if no icon found (no fallback — clean absence).
  */
@@ -19,10 +20,17 @@ interface Props {
   size?: number;
   class?: string;
   dark?: boolean;
+  mono?: boolean;
 }
 
-const { name, size = 20, class: className = "", dark = false } = Astro.props;
+const { name, size = 20, class: className = "", dark = false, mono = false } = Astro.props;
 const icon = getIconInfo(name);
+
+const filter = dark
+  ? "filter:brightness(0) invert(1) brightness(0.85)"
+  : mono
+    ? "filter:brightness(0) opacity(0.78)"
+    : "";
 ---
 
 {icon.file && (
@@ -39,7 +47,7 @@ const icon = getIconInfo(name);
       "object-fit:contain",
       `max-height:${size}px`,
       icon.isLogotype ? "width:auto" : `width:${size}px`,
-      dark ? "filter:brightness(0) invert(1) brightness(0.85)" : "",
+      filter,
     ].filter(Boolean).join(";")}
   />
 )}

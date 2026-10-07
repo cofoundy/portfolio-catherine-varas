@@ -1,0 +1,24 @@
+---
+import BrandIcon from "./BrandIcon.astro";
+
+// Logos that exist in public/icons/ — looped twice for a seamless scroll
+const logos = [
+  "Python", "Azure", "Databricks", "Apache Spark", "AWS", "Microsoft",
+  "Power BI", "PostgreSQL", "Docker", "Java", "Oracle", "Kubernetes",
+  "Snowflake", "Streamlit", "Git", "GraphQL",
+];
+const loop = [...logos, ...logos];
+---
+
+<section aria-hidden="true" class="relative z-10 py-5 border-y border-violet-100 bg-white/70 backdrop-blur-sm">
+  <div class="marquee">
+    <div class="marquee-track">
+      {loop.map((name) => (
+        <div class="flex items-center gap-2.5 pr-14 text-sm font-medium text-ink-muted whitespace-nowrap select-none">
+          <BrandIcon name={name} size={22} />
+          <span>{name}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

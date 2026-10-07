@@ -1,0 +1,138 @@
+---
+import { siteConfig } from "../config";
+import ProjectCard from "./ProjectCard.astro";
+
+// Outline icon paths (24x24, stroke) keyed by service.icon
+const icons: Record<string, string> = {
+  bolt: "M13 10V3L4 14h7v7l9-11h-7z",
+  chat: "M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z",
+  chip: "M9 3v2m6-2v2M9 19v2m6-2v2M3 9h2m-2 6h2m14-6h2m-2 6h2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z",
+  grid: "M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z",
+  globe: "M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9",
+  database: "M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4",
+};
+
+type Work = {
+  service: string;
+  name: string;
+  description: string;
+  github?: string;
+  live?: string;
+  liveLabel?: string;
+  hideGithub?: boolean;
+  image?: string;
+  video?: string;
+  tags: string[];
+};
+const allWork = siteConfig.projects as unknown as Work[];
+const byService = (key: string) => allWork.filter((p) => p.service === key);
+---
+
+<section id="services" class="relative py-24 md:py-32">
+  <div class="max-w-6xl mx-auto px-6">
+    <!-- Section header -->
+    <div class="reveal mb-10">
+      <p class="text-sm font-mono text-violet-600 mb-2">// services & products</p>
+      <h2 class="text-3xl md:text-5xl font-bold text-ink leading-tight">Services</h2>
+      <p class="text-ink-muted mt-4 max-w-2xl leading-relaxed">
+        What I can build for you, by category. Each category includes examples of work I have already delivered, with live demos where available.
+      </p>
+      <div class="shimmer-bar w-24 mt-4"></div>
+    </div>
+
+    <!-- Category quick-nav -->
+    <div class="reveal flex flex-wrap gap-2 mb-16">
+      {siteConfig.services.map((svc) => (
+        <a
+          href={`#svc-${svc.key}`}
+          class="px-3.5 py-1.5 text-xs md:text-sm rounded-full glass text-ink-muted hover:text-violet-700 hover:border-violet-300 hover:-translate-y-0.5 transition-all duration-200"
+        >
+          {svc.title}
+        </a>
+      ))}
+    </div>
+
+    <!-- Categories -->
+    <div class="space-y-24">
+      {siteConfig.services.map((svc, si) => {
+        const work = byService(svc.key);
+        return (
+          <article id={`svc-${svc.key}`} class="scroll-mt-28">
+            <!-- Category header -->
+            <div class="reveal grid md:grid-cols-[1.25fr_1fr] gap-8 items-start mb-8">
+              <div>
+                <div class="flex items-center gap-3 mb-4">
+                  <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600 to-violet-600 text-white flex items-center justify-center shadow-lg shadow-violet-500/30">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d={icons[svc.icon]} />
+                    </svg>
+                  </div>
+                  <span class="text-xs font-mono text-violet-500">0{si + 1}</span>
+                </div>
+                <h3 class="text-2xl md:text-3xl font-bold text-ink mb-3">{svc.title}</h3>
+                <p class="text-ink-muted leading-relaxed">{svc.pitch}</p>
+              </div>
+
+              <div class="glass rounded-2xl p-5 spot">
+                <p class="text-xs font-mono text-violet-600 mb-3">What you get</p>
+                <ul class="space-y-2 mb-4">
+                  {svc.deliverables.map((d) => (
+                    <li class="flex items-start gap-2 text-sm text-ink-muted">
+                      <svg class="w-4 h-4 mt-0.5 text-violet-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M5 13l4 4L19 7"/>
+                      </svg>
+                      <span>{d}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div class="flex flex-wrap gap-1.5">
+                  {svc.tags.map((tag) => (
+                    <span class="px-2 py-0.5 text-[10px] font-mono rounded-md bg-blue-50 text-blue-700 border border-blue-100">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <!-- Work under this category -->
+            {work.length > 0 && (
+              <div class={`grid ${(svc as any).compact ? 'gap-4 sm:grid-cols-2 lg:grid-cols-3' : work.length === 1 ? 'gap-6' : work.length === 2 ? 'gap-6 md:grid-cols-2' : 'gap-6 md:grid-cols-2 lg:grid-cols-3'}`}>
+                {work.map((p, i) => (
+                  <ProjectCard project={p} wide={work.length === 1} compact={Boolean((svc as any).compact)} stagger={i + 1} />
+                ))}
+              </div>
+            )}
+          </article>
+        );
+      })}
+    </div>
+
+    <!-- Process -->
+    <div class="reveal mt-28">
+      <p class="text-sm font-mono text-violet-600 mb-2">// process</p>
+      <h3 class="text-2xl md:text-3xl font-bold text-ink mb-8">How I work</h3>
+      <div class="grid md:grid-cols-3 gap-6">
+        {siteConfig.process.map((st, i) => (
+          <div class={`reveal stagger-${i + 1} glass rounded-2xl p-6 spot ring-hover card-3d`}>
+            <span class="text-4xl font-bold gradient-text">{st.step}</span>
+            <h4 class="text-lg font-bold text-ink mt-3 mb-2">{st.title}</h4>
+            <p class="text-sm text-ink-muted leading-relaxed">{st.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="reveal text-center mt-14">
+      <a
+        href={`mailto:${siteConfig.social.email}?subject=Project%20enquiry`}
+        class="magnetic btn-primary inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold"
+      >
+        Tell me what you need
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+      <p class="text-xs text-ink-soft mt-4">{siteConfig.about.availability}</p>
+    </div>
+  </div>
+</section>

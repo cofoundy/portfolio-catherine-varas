@@ -1,81 +1,132 @@
 ---
 import { siteConfig } from "../config";
+
+// Split the name into words/letters for the staggered entrance.
+// Each letter carries its own slice of one continuous gradient (--p),
+// sized so the whole name spans a blue → violet → purple sweep (--bg-size).
+const name = siteConfig.name;
+const k = name.length * 2;
+const step = 100 / (k - 1);
+let i = 0;
+const words = name.split(" ").map((word) => {
+  const letters = word.split("").map((ch) => {
+    const l = { ch, p: `${(i * step).toFixed(3)}%`, d: `${250 + i * 45}ms` };
+    i += 1;
+    return l;
+  });
+  i += 1; // the space between words
+  return letters;
+});
+const bgSize = `${k * 100}%`;
+
+// Stats: separate numeric part so it can count up on load ("+5" → "+" and 5)
+const stats = siteConfig.stats.map((s) => {
+  const m = s.value.match(/^(\D*)(\d+)(.*)$/);
+  return m
+    ? { prefix: m[1], num: m[2], suffix: m[3], label: s.label }
+    : { prefix: s.value, num: null as string | null, suffix: "", label: s.label };
+});
 ---
 
-<section id="hero" class="relative min-h-[85vh] flex items-center justify-center overflow-hidden pt-24">
-  <!-- Ambient gradient blobs -->
-  <div class="absolute inset-0 overflow-hidden">
-    <div id="blob-a" class="absolute w-[500px] h-[500px] rounded-full opacity-20 blur-[120px] bg-blue-600"></div>
-    <div id="blob-b" class="absolute w-[400px] h-[400px] rounded-full opacity-15 blur-[120px] bg-violet-600"></div>
-    <div id="blob-c" class="absolute w-[350px] h-[350px] rounded-full opacity-10 blur-[100px] bg-pink-600"></div>
+<section id="hero" class="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-24">
+  <!-- Ambient pastel blobs -->
+  <div id="hero-blobs" class="absolute inset-0 overflow-hidden will-change-transform" aria-hidden="true">
+    <div id="blob-a" class="absolute w-[640px] h-[640px] rounded-full bg-violet-400 opacity-60 blur-[110px]"></div>
+    <div id="blob-b" class="absolute w-[540px] h-[540px] rounded-full bg-blue-400 opacity-55 blur-[110px]"></div>
+    <div id="blob-c" class="absolute w-[480px] h-[480px] rounded-full bg-purple-300 opacity-65 blur-[100px]"></div>
   </div>
 
-  <!-- Gradient overlay for depth -->
-  <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#030712] z-[1]"></div>
+  <!-- Particle network (data-pipeline feel), reacts to the cursor -->
+  <canvas id="hero-canvas" class="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true"></canvas>
+
+  <!-- Fade to white so the hero blends into the next section -->
+  <div class="absolute inset-0 bg-gradient-to-b from-white/0 via-white/0 to-white z-[1] pointer-events-none"></div>
 
   <!-- Content -->
-  <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+  <div id="hero-content" class="relative z-10 text-center px-6 py-10 max-w-5xl mx-auto will-change-transform">
+    <!-- Soft white halo so the text stays readable over the particles -->
+    <div aria-hidden="true" class="absolute -inset-x-20 -inset-y-10 md:-inset-x-32 md:-inset-y-14 rounded-[50%] bg-white/75 blur-3xl -z-10 pointer-events-none"></div>
+
     <!-- Badge -->
-    <div class="inline-flex items-center gap-2 px-4 py-1.5 glass rounded-full mb-6 animate-fade-up">
-      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-      <span class="text-xs md:text-sm text-slate-300 font-mono tracking-wider uppercase">Data & AI Engineer</span>
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 glass rounded-full mb-8 animate-fade-up">
+      <span class="relative flex h-2 w-2">
+        <span class="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping"></span>
+        <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+      </span>
+      <span class="text-xs md:text-sm text-violet-700 font-mono tracking-wider uppercase">{siteConfig.title}</span>
     </div>
 
-    <!-- Name -->
-    <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold hero-name-shimmer mb-2 animate-fade-up leading-tight">
-      {siteConfig.name}
+    <!-- Name: letter by letter -->
+    <h1
+      class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-4 leading-[1.05] tracking-tight"
+      aria-label={name}
+      style={`--bg-size:${bgSize}`}
+    >
+      {words.map((letters, wi) => (
+        <Fragment>
+          {wi > 0 && " "}
+          <span class="hero-word" aria-hidden="true">
+            {letters.map((l) => (
+              <span class="hero-letter" style={`--p:${l.p};--d:${l.d}`}>{l.ch}</span>
+            ))}
+          </span>
+        </Fragment>
+      ))}
     </h1>
 
     <!-- Decorative separator -->
-    <div class="w-24 md:w-32 h-1 mx-auto mb-6 rounded-full bg-gradient-to-r from-blue-500 via-violet-500 to-pink-500 animate-fade-up delay-1"></div>
+    <div class="w-24 md:w-32 h-1 mx-auto mb-6 rounded-full bg-gradient-to-r from-blue-500 via-violet-500 to-purple-400 animate-fade-up delay-2"></div>
 
     <!-- Rotating tagline -->
-    <div class="h-8 md:h-10 mb-6 animate-fade-up delay-1">
-      <p id="tagline" class="text-lg md:text-2xl text-blue-400 font-mono">
+    <div class="h-8 md:h-10 mb-6 animate-fade-up delay-2">
+      <p id="tagline" class="text-lg md:text-2xl text-violet-600 font-mono" data-taglines={JSON.stringify(siteConfig.taglines)}>
         {siteConfig.taglines[0]}
       </p>
     </div>
 
     <!-- Description -->
-    <p class="text-sm md:text-base text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-up delay-2">
+    <p class="text-sm md:text-base text-ink-muted max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-up delay-3">
       {siteConfig.description}
     </p>
 
     <!-- Stats -->
-    <div class="flex flex-wrap justify-center gap-6 md:gap-10 mb-10 animate-fade-up delay-3">
-      {siteConfig.stats.map((stat) => (
+    <div class="flex flex-wrap justify-center gap-8 md:gap-14 mb-10 animate-fade-up delay-4">
+      {stats.map((st) => (
         <div class="text-center">
-          <div class="text-2xl md:text-3xl font-bold gradient-text-blue">{stat.value}</div>
-          <div class="text-xs md:text-sm text-slate-500 mt-1">{stat.label}</div>
+          <div class="text-3xl md:text-4xl font-bold gradient-text">
+            {st.prefix}{st.num !== null ? <span class="counter" data-target={st.num}>0</span> : null}{st.suffix}
+          </div>
+          <div class="text-xs md:text-sm text-ink-soft mt-1">{st.label}</div>
         </div>
       ))}
     </div>
 
     <!-- Social + CTA -->
-    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up delay-4">
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-5 animate-fade-up delay-5">
       <a
-        href="#projects"
-        class="px-6 py-3 bg-gradient-to-r from-blue-600 to-violet-600 rounded-full text-white text-sm font-medium hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 hover:scale-105"
+        href="#contact"
+        class="magnetic btn-primary inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-semibold"
       >
-        View My Work
+        Let's talk
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
       </a>
       <div class="flex items-center gap-3">
-        <a href={siteConfig.social.github} target="_blank" rel="noopener" class="p-2.5 glass rounded-full hover:bg-white/10 transition-all duration-200 group" aria-label="GitHub">
-          <svg class="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        <a href={siteConfig.social.github} target="_blank" rel="noopener" class="p-2.5 glass rounded-full hover:bg-violet-50 hover:-translate-y-0.5 transition-all duration-200 group" aria-label="GitHub">
+          <svg class="w-5 h-5 text-ink-muted group-hover:text-violet-700 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
         </a>
-        <a href={siteConfig.social.linkedin} target="_blank" rel="noopener" class="p-2.5 glass rounded-full hover:bg-white/10 transition-all duration-200 group" aria-label="LinkedIn">
-          <svg class="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        <a href={siteConfig.social.linkedin} target="_blank" rel="noopener" class="p-2.5 glass rounded-full hover:bg-violet-50 hover:-translate-y-0.5 transition-all duration-200 group" aria-label="LinkedIn">
+          <svg class="w-5 h-5 text-ink-muted group-hover:text-violet-700 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
         </a>
-        <a href={`mailto:${siteConfig.social.email}`} class="p-2.5 glass rounded-full hover:bg-white/10 transition-all duration-200 group" aria-label="Email">
-          <svg class="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        <a href={`mailto:${siteConfig.social.email}`} class="p-2.5 glass rounded-full hover:bg-violet-50 hover:-translate-y-0.5 transition-all duration-200 group" aria-label="Email">
+          <svg class="w-5 h-5 text-ink-muted group-hover:text-violet-700 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
         </a>
       </div>
     </div>
 
     <!-- Scroll indicator -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-fade-in delay-6">
+    <div class="absolute -bottom-10 left-1/2 -translate-x-1/2 animate-fade-in delay-6">
       <div class="animate-float">
-        <svg class="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-6 h-6 text-violet-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
         </svg>
       </div>
@@ -84,11 +135,165 @@ import { siteConfig } from "../config";
 </section>
 
 <script>
-  (function() {
+  import { createNoise3D } from "simplex-noise";
+
+  /* ── Particle network background ── */
+  (function () {
+    const canvas = document.getElementById("hero-canvas") as HTMLCanvasElement | null;
+    const hero = document.getElementById("hero");
+    if (!canvas || !hero) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const noise = createNoise3D();
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    const COUNT = isMobile ? 40 : 90;
+    const LINK = isMobile ? 110 : 140;
+    const MOUSE_R = 180;
+
+    let w = 0, h = 0, dpr = 1;
+    type P = { x: number; y: number; vx: number; vy: number; r: number; hue: number; seed: number };
+    const pts: P[] = [];
+    const mouse = { x: -9999, y: -9999, active: false };
+    let t = 0;
+    let running = true;
+
+    function resize() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = hero!.clientWidth;
+      h = hero!.clientHeight;
+      canvas!.width = w * dpr;
+      canvas!.height = h * dpr;
+      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function seed() {
+      pts.length = 0;
+      for (let i = 0; i < COUNT; i++) {
+        pts.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: 0,
+          vy: 0,
+          r: 1.2 + Math.random() * 1.8,
+          hue: Math.random() < 0.5 ? 0 : 1, // 0 = violet, 1 = blue
+          seed: Math.random() * 1000,
+        });
+      }
+    }
+
+    const COLORS = ["124, 58, 237", "37, 99, 235"];
+
+    function step() {
+      if (!running) return;
+      t += 0.0025;
+      ctx!.clearRect(0, 0, w, h);
+
+      // move along a gentle noise flow field
+      for (const p of pts) {
+        const a = noise(p.x * 0.0015, p.y * 0.0015, t + p.seed) * Math.PI * 2;
+        p.vx += Math.cos(a) * 0.02;
+        p.vy += Math.sin(a) * 0.02;
+
+        // cursor: gentle attraction so the network "leans" toward the pointer
+        if (mouse.active) {
+          const dx = mouse.x - p.x, dy = mouse.y - p.y;
+          const d = Math.hypot(dx, dy);
+          if (d < MOUSE_R && d > 1) {
+            const f = (1 - d / MOUSE_R) * 0.04;
+            p.vx += (dx / d) * f;
+            p.vy += (dy / d) * f;
+          }
+        }
+
+        p.vx *= 0.96; p.vy *= 0.96;
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < -20) p.x = w + 20; else if (p.x > w + 20) p.x = -20;
+        if (p.y < -20) p.y = h + 20; else if (p.y > h + 20) p.y = -20;
+      }
+
+      // links
+      ctx!.lineWidth = 1;
+      for (let i = 0; i < pts.length; i++) {
+        const a = pts[i];
+        for (let j = i + 1; j < pts.length; j++) {
+          const b = pts[j];
+          const dx = a.x - b.x, dy = a.y - b.y;
+          const d2 = dx * dx + dy * dy;
+          if (d2 > LINK * LINK) continue;
+          const alpha = (1 - Math.sqrt(d2) / LINK) * 0.35;
+          ctx!.strokeStyle = `rgba(${COLORS[a.hue]}, ${alpha})`;
+          ctx!.beginPath(); ctx!.moveTo(a.x, a.y); ctx!.lineTo(b.x, b.y); ctx!.stroke();
+        }
+        // links to the cursor
+        if (mouse.active) {
+          const dx = a.x - mouse.x, dy = a.y - mouse.y;
+          const d = Math.hypot(dx, dy);
+          if (d < MOUSE_R) {
+            ctx!.strokeStyle = `rgba(124, 58, 237, ${(1 - d / MOUSE_R) * 0.5})`;
+            ctx!.beginPath(); ctx!.moveTo(a.x, a.y); ctx!.lineTo(mouse.x, mouse.y); ctx!.stroke();
+          }
+        }
+      }
+
+      // dots with a soft glow
+      for (const p of pts) {
+        const c = COLORS[p.hue];
+        ctx!.fillStyle = `rgba(${c}, 0.12)`;
+        ctx!.beginPath(); ctx!.arc(p.x, p.y, p.r * 3, 0, Math.PI * 2); ctx!.fill();
+        ctx!.fillStyle = `rgba(${c}, 0.8)`;
+        ctx!.beginPath(); ctx!.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx!.fill();
+      }
+
+      requestAnimationFrame(step);
+    }
+
+    hero.addEventListener("pointermove", (e) => {
+      const r = hero!.getBoundingClientRect();
+      mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; mouse.active = true;
+    });
+    hero.addEventListener("pointerleave", () => { mouse.active = false; });
+
+    // pause when the hero is off-screen
+    new IntersectionObserver((entries) => {
+      const visible = entries[0]?.isIntersecting ?? true;
+      if (visible && !running) { running = true; step(); }
+      else if (!visible) running = false;
+    }).observe(hero);
+
+    window.addEventListener("resize", () => { resize(); }, { passive: true });
+    resize(); seed(); step();
+  })();
+
+  /* ── Mouse parallax: content and blobs drift in opposite directions ── */
+  (function () {
+    const content = document.getElementById("hero-content");
+    const blobs = document.getElementById("hero-blobs");
+    const hero = document.getElementById("hero");
+    if (!content || !blobs || !hero) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!window.matchMedia("(hover: hover)").matches) return;
+    let tx = 0, ty = 0, cx = 0, cy = 0;
+    hero.addEventListener("pointermove", (e) => {
+      const r = hero.getBoundingClientRect();
+      tx = ((e.clientX - r.left) / r.width - 0.5) * 2;
+      ty = ((e.clientY - r.top) / r.height - 0.5) * 2;
+    });
+    hero.addEventListener("pointerleave", () => { tx = 0; ty = 0; });
+    (function loop() {
+      cx += (tx - cx) * 0.06; cy += (ty - cy) * 0.06;
+      content.style.transform = `translate3d(${cx * 10}px, ${cy * 8}px, 0)`;
+      blobs.style.transform = `translate3d(${cx * -28}px, ${cy * -22}px, 0)`;
+      requestAnimationFrame(loop);
+    })();
+  })();
+
+  (function () {
     const blobs = [
-      { el: document.getElementById('blob-a')!, cx: 0.3, cy: 0.3, rx: 0.2, ry: 0.15, speed: 0.0004 },
-      { el: document.getElementById('blob-b')!, cx: 0.7, cy: 0.5, rx: 0.25, ry: 0.2, speed: 0.0003 },
-      { el: document.getElementById('blob-c')!, cx: 0.5, cy: 0.7, rx: 0.15, ry: 0.25, speed: 0.00035 },
+      { el: document.getElementById('blob-a')!, cx: 0.28, cy: 0.35, rx: 0.18, ry: 0.15, speed: 0.0004 },
+      { el: document.getElementById('blob-b')!, cx: 0.72, cy: 0.45, rx: 0.22, ry: 0.2, speed: 0.0003 },
+      { el: document.getElementById('blob-c')!, cx: 0.5, cy: 0.75, rx: 0.15, ry: 0.22, speed: 0.00035 },
     ];
 
     let t = 0;
@@ -106,18 +311,14 @@ import { siteConfig } from "../config";
     }
     animate();
 
-    const taglines = [
-      "Building Data Platforms",
-      "Migrating Legacy to Cloud",
-      "Enabling AI Integration",
-      "Engineering Scalable Pipelines",
-    ];
-    let taglineIdx = 0;
     const taglineEl = document.getElementById('tagline');
+    const taglines: string[] = JSON.parse(taglineEl?.dataset.taglines || '[]');
+    let taglineIdx = 0;
 
-    setInterval(() => {
-      taglineIdx = (taglineIdx + 1) % taglines.length;
-      if (taglineEl) {
+    if (taglineEl && taglines.length > 1) {
+      taglineEl.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+      setInterval(() => {
+        taglineIdx = (taglineIdx + 1) % taglines.length;
         taglineEl.style.opacity = '0';
         taglineEl.style.transform = 'translateY(10px)';
         setTimeout(() => {
@@ -125,11 +326,7 @@ import { siteConfig } from "../config";
           taglineEl.style.opacity = '1';
           taglineEl.style.transform = 'translateY(0)';
         }, 300);
-      }
-    }, 3000);
-
-    if (taglineEl) {
-      taglineEl.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+      }, 3000);
     }
   })();
 </script>

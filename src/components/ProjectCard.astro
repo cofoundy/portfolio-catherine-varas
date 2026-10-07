@@ -1,0 +1,109 @@
+---
+/**
+ * ProjectCard — proof-of-work card used inside Services.
+ * `wide` renders the horizontal layout (image left, content right).
+ */
+interface Project {
+  name: string;
+  description: string;
+  github?: string;
+  live?: string;
+  liveLabel?: string;
+  hideGithub?: boolean;
+  image?: string;
+  video?: string;
+  tags: string[];
+}
+
+interface Props {
+  project: Project;
+  wide?: boolean;
+  compact?: boolean;
+  stagger?: number;
+}
+
+const { project, wide = false, compact = false, stagger = 1 } = Astro.props;
+const preview = project.image || project.video;
+const href = project.live || project.github;
+const imgH = compact ? 'h-32' : 'h-48';
+---
+
+<div class={`reveal stagger-${Math.min(stagger, 4)} group`}>
+  <div class={`glass overflow-hidden h-full spot ring-hover card-3d ${compact ? 'rounded-xl' : 'rounded-2xl'} ${wide ? 'md:flex' : 'flex flex-col'}`}>
+    {preview && (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener"
+        class={`block ${wide ? 'md:w-1/2 shrink-0' : ''}`}
+      >
+        <div class={`relative overflow-hidden ${wide ? 'h-56 md:h-full md:min-h-[300px]' : imgH}`}>
+          {project.video ? (
+            <video
+              src={project.video}
+              autoplay
+              loop
+              muted
+              playsinline
+              class={`w-full object-cover object-top ${wide ? 'h-full md:absolute md:inset-0' : imgH}`}
+            />
+          ) : (
+            <img
+              src={project.image}
+              alt={`${project.name} preview`}
+              class={`w-full object-cover object-top transition-transform duration-700 group-hover:scale-105 ${wide ? 'h-full md:absolute md:inset-0' : imgH}`}
+              loading="lazy"
+            />
+          )}
+          <div class="absolute inset-0 bg-gradient-to-t from-white/50 via-transparent to-transparent pointer-events-none" />
+        </div>
+      </a>
+    )}
+
+    <div class={`flex flex-col ${compact ? 'p-4' : 'p-6'} ${wide ? 'md:p-8 md:justify-center' : 'flex-1'}`}>
+      <!-- Header -->
+      <div class={`flex items-start justify-between ${compact ? 'mb-2.5' : 'mb-4'}`}>
+        <div class={`rounded-xl bg-violet-50 text-violet-600 ${compact ? 'p-1.5' : 'p-2.5'}`}>
+          <svg class={compact ? 'w-4 h-4' : 'w-5 h-5'} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
+          </svg>
+        </div>
+        <div class="flex items-center gap-2">
+          {project.live && (
+            <a
+              href={project.live}
+              target="_blank"
+              rel="noopener"
+              class="flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-mono rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 transition-colors"
+            >
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              {project.liveLabel || "Live Demo"}
+            </a>
+          )}
+          {!project.hideGithub && project.github && (
+            <a href={project.github} target="_blank" rel="noopener" class="text-ink-soft hover:text-violet-700 transition-colors" aria-label="GitHub repo">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            </a>
+          )}
+        </div>
+      </div>
+
+      <!-- Title -->
+      <h4 class={`title-gradient font-bold text-ink transition-all duration-300 ${wide ? 'text-xl md:text-2xl mb-2' : compact ? 'text-base mb-1.5' : 'text-lg mb-2'}`}>
+        {project.name}
+      </h4>
+
+      <!-- Description -->
+      <p class={`text-ink-muted leading-relaxed ${compact ? 'text-xs mb-3' : 'text-sm mb-5'}`}>{project.description}</p>
+
+      <!-- Tags -->
+      <div class="flex flex-wrap gap-1.5 mt-auto">
+        {project.tags.map((tag) => (
+          <span class="px-2 py-0.5 text-[10px] font-mono rounded-md bg-violet-50 text-violet-700 border border-violet-100">
+            {tag}
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
