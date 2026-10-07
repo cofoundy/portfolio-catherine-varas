@@ -31,6 +31,9 @@ export const siteConfig = {
     { value: "6", label: "Cloud Certifications" },
   ],
 
+  // Served from public/ — keep in sync with the root Varas_Catherine_CV.pdf
+  cvFile: "/Varas_Catherine_CV.pdf",
+
   social: {
     email: "catherine.varas.padilla@gmail.com",
     linkedin: "https://www.linkedin.com/in/catherine-varas/",
