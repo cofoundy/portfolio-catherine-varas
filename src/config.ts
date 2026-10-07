@@ -59,22 +59,6 @@ export const siteConfig = {
   // delivered work that aren't "projects" go in the same list with their service key.
   services: [
     {
-      key: "automation",
-      icon: "bolt",
-      title: "AI Agents & n8n Automations",
-      pitch: "Agentic workflows that run your operations: WhatsApp, email, ERPs, databases and dashboards orchestrated end to end with n8n and LLMs.",
-      deliverables: ["Incident intake & classification bots", "ERP ↔ dashboard ↔ WhatsApp sync", "Approval flows, alerts and reports"],
-      tags: ["n8n", "LLMs", "WhatsApp API", "Webhooks"],
-    },
-    {
-      key: "rag",
-      icon: "chat",
-      title: "RAG & LLM Assistants",
-      pitch: "Assistants that answer with your own documents and data, never guesses. Retrieval pipelines, evaluation and full query traceability included.",
-      deliverables: ["Knowledge-base chat over your docs", "Code & SQL migration copilots", "Semantic search on Azure AI Search"],
-      tags: ["RAG", "Azure AI Search", "HuggingFace", "Claude"],
-    },
-    {
       key: "ai",
       icon: "chip",
       title: "Custom AI Systems",
@@ -106,6 +90,22 @@ export const siteConfig = {
       pitch: "Pipelines, lakehouses and migrations that hold up in production: from legacy mainframes and SQL Server to Azure, Databricks and Snowflake.",
       deliverables: ["Azure Data Factory + Medallion lakehouse", "Spark batch pipelines & validation", "Power BI analytics layer"],
       tags: ["Azure Data Factory", "Databricks", "Spark", "Snowflake"],
+    },
+    {
+      key: "automation",
+      icon: "bolt",
+      title: "AI Agents & n8n Automations",
+      pitch: "Agentic workflows that run your operations: WhatsApp, email, ERPs, databases and dashboards orchestrated end to end with n8n and LLMs.",
+      deliverables: ["Incident intake & classification bots", "ERP ↔ dashboard ↔ WhatsApp sync", "Approval flows, alerts and reports"],
+      tags: ["n8n", "LLMs", "WhatsApp API", "Webhooks"],
+    },
+    {
+      key: "rag",
+      icon: "chat",
+      title: "RAG & LLM Assistants",
+      pitch: "Assistants that answer with your own documents and data, never guesses. Retrieval pipelines, evaluation and full query traceability included.",
+      deliverables: ["Knowledge-base chat over your docs", "Code & SQL migration copilots", "Semantic search on Azure AI Search"],
+      tags: ["RAG", "Azure AI Search", "HuggingFace", "Claude"],
     },
   ],
 
